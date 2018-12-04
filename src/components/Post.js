@@ -6,24 +6,16 @@ export default class Post extends React.Component {
     constructor(props) {
     super(props);
     this.state = {title: '', detail: ''};
-
-    this.handleChangeTitle = this.handleChangeTitle.bind(this);
-    this.handleChangeDetail= this.handleChangeDetail.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleChangeTitle(event) {
+  handleChangeTitle = (event) => {
     this.setState({title: event.target.value});
   }
-  handleChangeDetail(event) {
+  handleChangeDetail = (event) => {
     this.setState({detail: event.target.value});
   }
-  handleSubmit(event) {
-
+  handleSubmit = (event) => {
     var db = firebase.firestore();
-
     var userId = firebase.auth().currentUser.uid;
-
-
 var abc = db.collection('posts').doc().set({
      title: this.state.title,
      detail: this.state.detail,
@@ -41,10 +33,7 @@ var abc = db.collection('posts').doc().set({
       posts: firebase.firestore.FieldValue.arrayUnion(ref.id)
           });
     });
-
-
    event.preventDefault();
-
   }
     render(){
         return(
@@ -56,8 +45,6 @@ var abc = db.collection('posts').doc().set({
             </label>
             <input type="submit" value="Submit" />
           </form>
-
-
         )
     }
 }
