@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from "firebase";
+import firebase from "../firebase";
 import Home from "./Home";
 class Login extends React.Component {
     constructor(props) {
@@ -20,17 +20,12 @@ class Login extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('A email was submitted: ' + this.state.email);
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
     .then(success => {
-      console.log('success');
+      alert('success');
     })
     .catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      console.log('err');
-      var errorMessage = error.message;
-      // ...
+      console.log(error);
 });
     event.preventDefault();
   }

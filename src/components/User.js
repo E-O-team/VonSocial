@@ -1,27 +1,52 @@
 import React from 'react';
-import Post from './post';
-import { Link } from "react-router-dom";
-
+import firebase from '../firebase';
+import {Link} from 'react-router-dom';
 export default class User extends React.Component {
-    constructor(props) {
-    super(props);
-    this.enablePost = this.enablePost.bind(this);
-
-  }
-
-    enablePost(event){
-      return <Post />
+    constructor(){
+        super()
+        this.state={
+            email: "",
+            name: ""
+        }
     }
+    componentDidMount() {
+        console.log(firebase);
+        firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+            console.log(user);
+            this.setState({
+                email: user.email,
+                name: user.name
+            })
+          } else {
+            // No user is signed in.
+          }
+      });
+    }
+    handleLogout = e => {
+        firebase.auth().signOut()
+        .then(() => {
+            alert("singed out")
+        })
+        .catch(err => {
+            alert("Error! check in console");
+            console.log(err);
+        })
+    }
+
     render(){
         return(
-          <div>
-            <h1>User</h1>
-            <li>
-              <Link to="/post/">Post</Link>
-            </li>
-          </div>
+            <div>
+                <h1>User</h1>
+                    <h2>{this.state.email}</h2>
+                    <h2>{this.state.name}</h2>
+                    <li>
+                      <Link to="/post/">New Post</Link>
+                    </li>
+                    <input type="button" value="logout" onClick={this.handleLogout}/>
 
 
+            </div>
         )
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as firebase from 'firebase';
+import firebase from '../firebase';
 
 
 export default class Post extends React.Component {
