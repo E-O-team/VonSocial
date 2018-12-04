@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from '../firebase';
 import {Link} from 'react-router-dom';
+import SearchBar from './SearchBar';
 export default class User extends React.Component {
     constructor(){
         super()
@@ -38,6 +39,7 @@ export default class User extends React.Component {
         return(
             <div>
                 <h1>User</h1>
+                    <SearchBar/>
                     <h2>{this.state.email}</h2>
                     <h2>{this.state.name}</h2>
                     <li>
