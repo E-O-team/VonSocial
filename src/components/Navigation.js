@@ -14,18 +14,18 @@ const AppRouter = () => (
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/login/">Login</Link>
+            <Link to="/login">Login</Link>
           </li>
           <li>
-            <Link to="/user/">User</Link>
+            <Link to="/user">User</Link>
           </li>
         </ul>
       </nav>
 
       <Route path="/" exact component={Home} />
-      <Route path="/login/" component={SignInScreen} />
-      <Route path="/user/" component={User} />
-      <Route path="/post/" component={Post} />
+      <Route path="/login" component={SignInScreen} />
+      <Route path="/user" component={User} />
+      <Route path="/post" component={Post} />
 
     </div>
   </Router>
