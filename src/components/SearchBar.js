@@ -11,27 +11,27 @@ export default class SearchBar extends React.Component {
         word:''
       };
     }
-
-
-
-
-
     handleSearch = (event) => {
       this.setState({word : event.target.value});
     }
 
-    render(){
-      db.where("name","==",this.state.word).get()
-        .then(snapshot => {
-           filteredResult = snapshot.docs;
+    handleFind = e => {
+        db.where("name","==",this.state.word).get()
+          .then(snapshot => {
+              console.log(snapshot);
+             filteredResult = snapshot.docs;
 
-        })
-        .catch(err => {
-          console.log('Error getting documents', err);
-        });
+          })
+          .catch(err => {
+            console.log('Error getting documents', err);
+          });
+    }
+
+    render(){
       return(
         <div>
         <input type="text" value={this.state.word} onChange={this.handleSearch} />
+        <input type="button" value="find" onClick={this.handleFind}/>
         <ul>
         {
           filteredResult.map((doc) => {
