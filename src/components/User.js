@@ -81,9 +81,9 @@ export default class User extends React.Component {
                     <h2>{this.state.user.email}</h2>
                     <h2>{this.state.user.name}</h2>
                     <h3>Friends:</h3>
-                    { this.state.user.friends && this.state.user.friends.map(user =>{
+                    { this.state.user.friends && this.state.user.friends.map((user, index) =>{
                         return(
-                            <h4>{user}</h4>
+                            <h4 key={index}>{user}</h4>
                         )
                     })}
                     <img src={this.state.user.avatar}/>
