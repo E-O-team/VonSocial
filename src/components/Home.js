@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { toggleTodo } from '../actions/actions';
 import firebase from 'firebase';
-import Post from './Post';
+import Posts from './Posts';
 var userRef
 class Home extends React.Component {
     constructor(props){
@@ -28,7 +28,7 @@ class Home extends React.Component {
             <div>
                 <h1>Welcome to home</h1>
                     {this.state.user.friends && this.state.user.friends.map((friend, index) => {
-                        return <Post key={index} id={friend}/>
+                        return <Posts key={index} id={friend} index={index}/>
                     })}
             </div>
         )

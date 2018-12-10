@@ -1,7 +1,8 @@
 import React from 'react';
 import firebase from '../firebase';
+import PostCard from './PostCard'
 var posts
-export default class Post extends React.Component {
+export default class Posts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,6 +42,9 @@ export default class Post extends React.Component {
             db.collection('users').doc(userId).update({
                 posts: firebase.firestore.FieldValue.arrayUnion(ref.id)
             });
+            db.collection('posts').doc(ref.id).update({
+                uid : ref.id
+            });
         })
         .then(success => {
             alert("posted!")
@@ -53,20 +57,20 @@ export default class Post extends React.Component {
     }
     render() {
         return (
+          <div>
+          { (this.props.index == 0)?
             <form onSubmit={this.handleSubmit}>
                 <h3>Make a Post</h3>
                     <input type="text" value={this.state.title} onChange={this.handleChangeTitle}/>
                     <input type="text" value={this.state.detail} onChange={this.handleChangeDetail}/>
                 <input type="submit" value="Submit"/>
                 <h2>Posts</h2>
-                {this.state.posts && this.state.posts.map((post, index) => {
-                    return(
-                        <div key={index}>
-                            <h4>{post.title}</h4>
-                            <h5>{post.detail}</h5>
-                        </div>
-                    )
-                })}
-            </form>)
+            </form> : <br/>
+          }
+            {this.state.posts && this.state.posts.map((post, index) => {
+                return <PostCard key={index} post={post}/>
+            })}
+        </div>
+          )
     }
 }

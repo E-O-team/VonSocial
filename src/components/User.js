@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import FriendRequest from './FriendRequest';
-import Post from './Post';
+import Posts from './Posts';
 var userRef
 export default class User extends React.Component {
     constructor() {
@@ -67,7 +67,7 @@ export default class User extends React.Component {
                     </div>
                     <h1>{this.state.login}</h1>
                     <hr/>
-                    { this.state.user.uid && <Post id={this.state.user.uid}/> }
+                    { this.state.user.uid && <Posts id={this.state.user.uid} index={0}/> }
             </div>
         )
     }

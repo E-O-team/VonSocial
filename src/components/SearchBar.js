@@ -12,6 +12,11 @@ export default class SearchBar extends React.Component {
         data: []
       };
     }
+
+
+
+
+
     handleSearch = (event) => {
       this.setState({word : event.target.value});
       this.search(event.target.value);
