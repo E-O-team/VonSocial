@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from '../firebase';
+import { Jumbotron, Button } from 'reactstrap';
 var db = firebase.firestore();
 export default class PostCard extends React.Component{
   constructor(){
@@ -50,22 +51,22 @@ export default class PostCard extends React.Component{
 
     return(
       <div>
-          <img src={this.state.avatar} height='42' width='42'/>
-          <h3>{post.title}</h3>
-          <p>{post.detail}</p>
-          <input type="button" value="Like" onClick={this.onLike}/>
-          {(post.likes == undefined)? <h6>0</h6> : <h6>{post.likes.length}</h6>}
-          <h4>Comments :</h4>
-          <form onSubmit={this.onSubmit}>
-          <input type="text" value={this.state.comment} onChange={this.onChangeComment}/>
-          <input type="submit" value="Submit"/>
-          </form>
+          <Jumbotron>
+              <img src={this.state.avatar} height='42' width='42'/>
+              <h3>{post.title}</h3>
+              <p>{post.detail}</p>
+              <Button color="info" onClick={this.onLike}>Like</Button>
+              {(post.likes == undefined)? <h6>0</h6> : <h6>{post.likes.length}</h6>}
+              <h4>Comments :</h4>
+              <form onSubmit={this.onSubmit}>
+              <input type="text" value={this.state.comment} onChange={this.onChangeComment}/>
+              <input type="submit" value="Submit"/>
+              </form>
 
-          {(post.comments == undefined)? <h6>No comments</h6> : post.comments.map((comment, index) => {
-            return <h6 key={index}>{comment}</h6>
-          })}
-          <hr/>
-
+              {(post.comments == undefined)? <h6>No comments</h6> : post.comments.map((comment, index) => {
+                return <h6 key={index}>{comment}</h6>
+              })}
+          </Jumbotron>
       </div>
     )
   }

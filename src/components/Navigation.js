@@ -1,32 +1,61 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Route,
+    Link
+} from "react-router-dom";
 import Home from './Home';
 import Login from './Login';
 import User from './User';
 import SignInScreen from './Signin';
-const AppRouter = () => (
-  <Router>
-    <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/user">User</Link>
-          </li>
-        </ul>
-      </nav>
+import {
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
+} from 'reactstrap';
+export default class AppRouter extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return (
+            <Router>
+            <div>
+              <Navbar color="NavItemght" NavItemght expand="md">
+                <NavbarBrand href="/">VonSocial</NavbarBrand>
+                <Nav className="ml-auto" navbar>
+                  <NavItem>
+                      <NavLink>
+                          <Link to="/">Home</Link>
+                      </NavLink>
+                  </NavItem>
+                  <NavItem>
+                      <NavLink>
+                    <Link to="/login">Login</Link>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                      <NavLink>
+                    <Link to="/user">User</Link>
+                    </NavLink>
+                  </NavItem>
+                </Nav>
+            </Navbar>
 
-      <Route path="/" exact component={Home} />
-      <Route path="/login" component={SignInScreen} />
-      <Route path="/user" component={User} />
+              <Route path="/" exact component={Home} />
+              <Route path="/login" component={SignInScreen} />
+              <Route path="/user" component={User} />
 
-    </div>
-  </Router>
-);
-
-export default AppRouter;
+            </div>
+          </Router>
+        )
+    }
+}

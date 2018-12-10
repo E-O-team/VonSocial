@@ -6,6 +6,7 @@ import {
 import SearchBar from './SearchBar';
 import FriendRequest from './FriendRequest';
 import Posts from './Posts';
+import { Button } from 'reactstrap';
 var userRef
 export default class User extends React.Component {
     constructor() {
@@ -48,8 +49,7 @@ export default class User extends React.Component {
     render() {
         return (
             <div>
-                <input type="button" value="logout" onClick={this.handleLogout}/>
-
+                <Button color="danger" onClick={this.handleLogout}>Logout</Button>
                 <SearchBar/>
                 <h1>User</h1>
                     <h2>{this.state.user.email}</h2>
