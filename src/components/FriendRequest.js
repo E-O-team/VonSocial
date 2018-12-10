@@ -8,7 +8,7 @@ export default class FriendRequest extends React.Component {
         this.state={
             invitations: []
         }
-        userRef = this.props.userRef
+        userRef = db.doc(this.props.userRef.uid)
     }
     componentWillMount() {
         this.props.invitations.forEach(id => {
@@ -28,12 +28,14 @@ export default class FriendRequest extends React.Component {
     }
 
     handleAccept = e => {
-        db.doc(e.target.id).update({
-            friend: firebase.firestore.FieldValue.arrayUnion(userRef.id)
+        console.log(e.target.id);
+        let friendId = e.target.id
+        db.doc(friendId).update({
+            friends: firebase.firestore.FieldValue.arrayUnion(this.props.userRef.uid)
         })
         userRef.update({
-            friends: firebase.firestore.FieldValue.arrayUnion(e.target.id),
-            invitations: firebase.firestore.FieldValue.arrayRemove(e.target.id)
+            friends: firebase.firestore.FieldValue.arrayUnion(friendId),
+            invitations: firebase.firestore.FieldValue.arrayRemove(friendId)
         })
         .then(function() {
             console.log("Document successfully updated!");

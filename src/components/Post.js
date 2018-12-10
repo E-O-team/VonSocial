@@ -1,14 +1,26 @@
 import React from 'react';
 import firebase from '../firebase';
-
+var posts
 export default class Post extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             title: '',
-            detail: ''
+            detail: '',
+            posts: ''
         };
     }
+    componentDidMount() {
+        firebase.firestore().collection('posts').where("owner", "==", this.props.id).onSnapshot(doc => {
+            posts = doc.docs.map(post => {
+                return post.data()
+            })
+            this.setState({
+                posts: posts
+            })
+        })
+    }
+
     handleChangeTitle = (event) => {
         this.setState({title: event.target.value});
     }
@@ -36,14 +48,25 @@ export default class Post extends React.Component {
         .catch(err => console.log(err))
         event.preventDefault();
     }
+    handleDeletePost = e => {
+
+    }
     render() {
-        return (<form onSubmit={this.handleSubmit}>
-            <label>
-                Post
-                <input type="text" value={this.state.title} onChange={this.handleChangeTitle}/>
-                <input type="text" value={this.state.detail} onChange={this.handleChangeDetail}/>
-            </label>
-            <input type="submit" value="Submit"/>
-        </form>)
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <h3>Make a Post</h3>
+                    <input type="text" value={this.state.title} onChange={this.handleChangeTitle}/>
+                    <input type="text" value={this.state.detail} onChange={this.handleChangeDetail}/>
+                <input type="submit" value="Submit"/>
+                <h2>Posts</h2>
+                {this.state.posts && this.state.posts.map((post, index) => {
+                    return(
+                        <div key={index}>
+                            <h4>{post.title}</h4>
+                            <h5>{post.detail}</h5>
+                        </div>
+                    )
+                })}
+            </form>)
     }
 }

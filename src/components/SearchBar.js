@@ -33,7 +33,6 @@ export default class SearchBar extends React.Component {
       return(
         <div>
         <input type="text" value={this.state.word} onChange={this.handleSearch} />
-        <input type="button" value="find" onClick={this.handleFind}/>
         <ul>
         {
           this.state.data.map((doc)=>{

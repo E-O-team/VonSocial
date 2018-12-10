@@ -31,8 +31,10 @@ export default class UserCard extends React.Component{
     if(data.uid != firebase.auth().currentUser.uid)
     {
     db.collection('users').doc(data.uid).update({
-    invitations: firebase.firestore.FieldValue.arrayUnion(firebase.auth().currentUser.uid)
-        });
+        invitations: firebase.firestore.FieldValue.arrayUnion(firebase.auth().currentUser.uid)
+    }).then(success => {
+        alert("sent!")
+    })
     }
     e.preventDefault();
   }
